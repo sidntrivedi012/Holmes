@@ -5,6 +5,6 @@ IRC bot for OSDC's IRC Channel.
 
 ` 1. Clone the repository.`
 
-` 2. Fire up the terminal and rub 'ruby bot2.rb'. `
+` 2. Fire up the terminal and type 'ruby bot2.rb'. `
 
-* To change the channel, edit the ruby file.
+* To change the channel, edit the source file.
