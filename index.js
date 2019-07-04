@@ -48,7 +48,7 @@ bot.addListener("message", function(nick, to, text) {
       .then(function(html) {
         //success!
         var strip = $("#comic > img", html)[0].attribs.src;
-        bot.say(to, "Here is an xkcd strip for ya - https:" + strip);
+        bot.say(to, nick + " Here is an xkcd strip for ya - https:" + strip);
       })
       .catch(function(err) {
         //handle error
