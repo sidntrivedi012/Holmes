@@ -25,7 +25,14 @@ bot.addListener("join", function(channel, who) {
 });
 
 bot.addListener("nick", function(oldnick, newnick, channel, message) {
-  bot.say(channel, newnick + " seems kinda cool..");
+  bot.say(
+    channel,
+    "Hush everyone !! " +
+      oldnick +
+      " will be known as " +
+      newnick +
+      " in this arena."
+  );
 });
 
 bot.addListener("kick", function(channel, who, by, reason) {
