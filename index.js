@@ -2,12 +2,14 @@ const rp = require("request-promise");
 const $ = require("cheerio");
 var irc = require("irc");
 const axios = require("axios");
+var schedule = require("node-schedule");
 
 var greet = require("./static/greet.json");
+var quotes = require("./static/quotes.json");
 var config = {
-  channels: ["#jiit"],
+  channels: ["#jiit-lug"],
   server: "irc.freenode.net",
-  botName: "markbot12345"
+  botName: "rootbot"
 };
 
 var bot = new irc.Client(config.server, config.botName, {
@@ -20,7 +22,7 @@ bot.addListener("join", function(channel, who) {
   var min = 0;
   var index = Math.floor(Math.random() * (+max_len - +min)) + +min;
   console.log(index);
-  bot.say(channel, who + greet[index]);
+  bot.say(channel, who + greet[index] + " Use !help to know more about me.");
   console.log(greet[index]);
 });
 
@@ -42,6 +44,17 @@ bot.addListener("kick", function(channel, who, by, reason) {
 bot.addListener("message", function(nick, to, text) {
   // removes ' ' and converts into array
   var args = text.split(" ");
+
+  //help
+  if (args[0] == "!help") {
+    var str =
+      "Hey, I am a bot that lives here. You can interact me by the following commands:\n" +
+      "!xkcd - Get a link to random xkcd strip for you.\n" +
+      "!chuck - Get a Chuck norris joke.\n" +
+      "!chuck <first-name> - A Chuck norris joke with main character as the named person.\n" +
+      "!quote - Sends an inspirational quote all your way.";
+    bot.say(to, nick + str);
+  }
 
   //xkcd script
   if (args[0] == "!xkcd") {
@@ -85,5 +98,16 @@ bot.addListener("message", function(nick, to, text) {
       .finally(function() {
         // always executed
       });
+  }
+
+  //quote script
+  if (args[0] == "!quote") {
+    if (!args[1]) {
+      var quoteID = Math.floor(Math.random() * quotes.length);
+      var quote = quotes[quoteID].text;
+      var author = quotes[quoteID].from;
+      var full_quote = quote + "\nBy - " + author;
+      bot.say(to, nick + " " + full_quote);
+    }
   }
 });

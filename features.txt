@@ -2,3 +2,6 @@
 2. set topic [laters]
 3. xkcd [DONE]
 4. chuck norris [DONE]
+5. quote [DONE]
+6. Quote daily [TBD]
+7. 
