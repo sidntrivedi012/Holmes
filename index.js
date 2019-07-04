@@ -1,6 +1,7 @@
 const rp = require("request-promise");
 const $ = require("cheerio");
 var irc = require("irc");
+const axios = require("axios");
 
 var greet = require("./static/greet.json");
 var config = {
@@ -34,6 +35,8 @@ bot.addListener("kick", function(channel, who, by, reason) {
 bot.addListener("message", function(nick, to, text) {
   // removes ' ' and converts into array
   var args = text.split(" ");
+
+  //xkcd script
   if (args[0] == "!xkcd") {
     var max = 3000;
     var min = 0;
@@ -50,6 +53,30 @@ bot.addListener("message", function(nick, to, text) {
       .catch(function(err) {
         //handle error
         console.log("error");
+      });
+  }
+
+  //chuck norris script
+  if (args[0] == "!chuck") {
+    if (!args[1]) {
+      var norris = "http://api.icndb.com/jokes/random";
+    } else {
+      var norris = "http://api.icndb.com/jokes/random?firstName=" + args[1];
+    }
+    // Make a request for a user with a given ID
+    axios
+      .get(norris)
+      .then(function(response) {
+        // handle success
+        var joke = response["data"].value.joke;
+        bot.say(to, joke);
+      })
+      .catch(function(error) {
+        // handle error
+        console.log(error);
+      })
+      .finally(function() {
+        // always executed
       });
   }
 });

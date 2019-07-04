@@ -1,6 +1,6 @@
 1. greet [DONE]
 2. set topic [laters]
-3. xkcd
+3. xkcd [DONE]
 4. chuck norris
 5. mock
 6. praise
